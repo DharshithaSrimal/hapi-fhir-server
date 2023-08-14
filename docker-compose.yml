@@ -19,7 +19,7 @@ services:
       POSTGRES_DB: hapi
       POSTGRES_USER: hapi
       POSTGRES_PASSWORD: hapi
-    restart: unless-stopped
+    # restart: unless-stopped
     volumes:
       - hapi_postgres_data:/var/lib/postgresql/data
 
@@ -41,21 +41,21 @@ services:
     depends_on:
       - postgres_keycloak
 
-  hapi_fhir:
-    image: hapiproject/hapi:latest
-    container_name: hapi-fhir
-    ports:
-      - "8080:8080"
-    environment:
-      - HAPI_FHIR_SERVER_DATABASE_DRIVER=org.postgresql.Driver
-      - HAPI_FHIR_SERVER_DATABASE_URL=jdbc:postgresql://postgres:5432/hapi
-      - HAPI_FHIR_SERVER_DATABASE_USERNAME=hapi
-      - HAPI_FHIR_SERVER_DATABASE_PASSWORD=hapi
-    restart: unless-stopped
-    depends_on:
-      - postgres_hapi
-    volumes:
-      - ./hapi-fhir.properties:/usr/local/tomcat/conf/hapi-fhir.properties
+  # hapi_fhir:
+  #   image: hapiproject/hapi:latest
+  #   container_name: hapi-fhir
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - HAPI_FHIR_SERVER_DATABASE_DRIVER=org.postgresql.Driver
+  #     - HAPI_FHIR_SERVER_DATABASE_URL=jdbc:postgresql://postgres:5432/hapi
+  #     - HAPI_FHIR_SERVER_DATABASE_USERNAME=hapi
+  #     - HAPI_FHIR_SERVER_DATABASE_PASSWORD=hapi
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - postgres_hapi
+  #   volumes:
+  #     - ./hapi-fhir.properties:/usr/local/tomcat/conf/hapi-fhir.properties
 
 volumes:
   keycloak_postgres_data:
